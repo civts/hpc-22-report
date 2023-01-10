@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.1.7)  9 JAN 2023 11:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2023.1.7)  10 JAN 2023 17:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/dagu9/Desktop/Uni/HPC/Project/parallel-closest-pair/Report/conference_101719.tex
-(/home/dagu9/Desktop/Uni/HPC/Project/parallel-closest-pair/Report/conference_101719.tex
+**/home/dagu9/Desktop/Uni/HPC/Project/hpc-22-report/Report/conference_101719.tex
+(/home/dagu9/Desktop/Uni/HPC/Project/hpc-22-report/Report/conference_101719.tex
 LaTeX2e <2022-06-01> patch level 5
 L3 programming layer <2022-07-15> (./IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
@@ -269,15 +269,15 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
+)) (./introduction.tex
+LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 27.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 6.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./introduction.tex) (./problem_analysis.tex) (./parallelization.tex) (./final_discussion.tex)
+)) (./problem_analysis.tex) (./parallelization.tex) (./final_discussion.tex) (./conference_101719.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -295,18 +295,18 @@ Before submitting the final camera ready copy, remember to:
 
 ] (./conference_101719.aux) ) 
 Here is how much of TeX's memory you used:
- 4225 strings out of 479865
- 66267 string characters out of 5885329
- 367704 words of memory out of 5000000
- 22399 multiletter control sequences out of 15000+600000
- 503917 words of font info for 97 fonts, out of 8000000 for 9000
+ 4205 strings out of 479865
+ 66143 string characters out of 5885329
+ 367686 words of memory out of 5000000
+ 22382 multiletter control sequences out of 15000+600000
+ 501461 words of font info for 85 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
- 55i,8n,62p,382b,259s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on conference_101719.pdf (1 page, 53483 bytes).
+ 55i,8n,62p,297b,259s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on conference_101719.pdf (1 page, 86731 bytes).
 PDF statistics:
- 29 PDF objects out of 1000 (max. 8388607)
- 17 compressed objects within 1 object stream
+ 49 PDF objects out of 1000 (max. 8388607)
+ 29 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
