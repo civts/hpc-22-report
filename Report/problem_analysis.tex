@@ -1,14 +1,29 @@
 Serial implementation
+
+We will now focus on the analysis of the divide and conquer algorithm 
+and its serial implementation.
+
 \subsection{Divide}
-The first step of the divide and conquer algorithm is the division
-of the original problem in sub problems. 
+The first step of the algorithm is the divide operation, i.e.
+split the original problem in sub problems. 
 
 The original set of points will be split in two subsets and each
-subset will be split in two subsets. This process will be repeated
+subset will be split in two subsets and so on. This process will be repeated
 until we have three or less points in each subset.
 \subsection{Find the closest pair}
 To find the closest pair in each subset we only have to perform
-three comparison and select the pair of points with the smallest
+at most three comparisons and select the pair of points with the smallest
 distance in the subset.
 \subsection{Merge}
+The merge operation is a crucial part in the algorithm.
+The first thing to do is to take two adjacent subsets and compare the distances
+found in each subset and take the pair of points with smaller distance. Then we 
+need to look at the boundary between the two subsets and check the distances of 
+the pairs where one point belongs to one subset and one point belongs to the other
+subset. To check these points we first select the strip of points with $x$ distance smaller
+than the current smaller distance, then we sort the selected points by the $y$ coordinate.
+Finally, for each point in the strip we calculate the distance between that point and 
+the $7$ points around it and we compare this distance with the smaller distance found so far.
+
+
 \subsection{Implementation}
