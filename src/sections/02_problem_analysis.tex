@@ -1,11 +1,14 @@
+\section{Problem analysis}
+\label{sec:problem_analysis}
+
 Serial implementation
 
-We will now focus on the analysis of the divide and conquer algorithm 
+We will now focus on the analysis of the divide and conquer algorithm
 and its serial implementation.
 
 \subsection{Divide}
 The first step of the algorithm is the divide operation, i.e.
-split the original problem in sub problems. 
+split the original problem in sub problems.
 
 The original set of points will be split in two subsets and each
 subset will be split in two subsets and so on. This process will be repeated
@@ -19,21 +22,21 @@ distance in the subset.
 \subsection{Merge}
 The merge operation is a crucial part in the algorithm.
 The first thing to do is to take two adjacent subsets and compare the distances
-found in each subset and take the pair of points with smaller distance. Then we 
-need to look at the boundary between the two subsets and check the distances of 
+found in each subset and take the pair of points with smaller distance. Then we
+need to look at the boundary between the two subsets and check the distances of
 the pairs where one point belongs to one subset and one point belongs to the other
 subset. To check these points we first select the strip of points with $x$ distance smaller
 than the current smaller distance, then we sort the selected points by the $y$ coordinate.
-Finally, for each point in the strip we calculate the distance between that point and 
+Finally, for each point in the strip we calculate the distance between that point and
 the $7$ points around it and we compare this distance with the smaller distance found so far.
-It can be proven matematically that 7 is the maximum number of points to check since, if there 
+It can be proven matematically that 7 is the maximum number of points to check since, if there
 would be closer points, a smaller distance would have been found in the previous step.
 (Decidere se spiegare meglio e/o aggiungere l'immagine)
 
 \subsection{Implementation}
-To implement the serial algorithm we started by implementing the \verb+closest_points_divide+ 
-function that takes an array of points already sorted by the x coordinate and split the array in two 
-halves and recursively computes the distances of each half using the \verb+closest_points_rec+ 
+To implement the serial algorithm we started by implementing the \verb+closest_points_divide+
+function that takes an array of points already sorted by the x coordinate and split the array in two
+halves and recursively computes the distances of each half using the \verb+closest_points_rec+
 function. After the distances computation we use the smallest distances to select the points
 near the boundary. Then we use the \verb+band_update_result+ to sort these points by the $y$ coordinate
 and check the distance between each point and the next 6 points.

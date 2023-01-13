@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+    latex:
+        build: 
+          context: .
+          dockerfile: Dockerfile
+        stdin_open: true
+        # Runs app on the same network as the plantUml container.
+        # Allows "forwardPorts" in devcontainer.json function.
+        network_mode: service:plantUml
+        volumes:
+            - ..:/workspace:cached
+    plantUml:
+        container_name: plantumll
+        image: plantuml/plantuml-server@sha256:08b1730ccf9a2167e6fc261190f4b9cc0f6b623f17a66a3bef980a0809c363e6
+        restart: unless-stopped
+    
+    # kroki:
+    #     image: yuzutech/kroki
+    #     # depends_on:
+    #     # - blockdiag
+    #     # - mermaid
+    #     # - bpmn
+    #     # - excalidraw
+    #     # environment:
+    #     # - KROKI_BLOCKDIAG_HOST=blockdiag
+    #     # - KROKI_MERMAID_HOST=mermaid
+    #     # - KROKI_BPMN_HOST=bpmn
+    #     # - KROKI_EXCALIDRAW_HOST=excalidraw
+    #     ports:
+    #     - 9090:8000
+    # blockdiag:
+    #     image: yuzutech/kroki-blockdiag
+    #     expose:
+    #     - 8001
+    # mermaid:
+    #     image: yuzutech/kroki-mermaid
+    #     expose:
+    #     - 8002
+    # bpmn:
+    #     image: yuzutech/kroki-bpmn
+    #     expose:
+    #     - 8003
+    # excalidraw:
+    #     image: yuzutech/kroki-excalidraw
+    #     expose:
+    #     - 8004
+    

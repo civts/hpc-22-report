@@ -1,0 +1,89 @@
+{
+  "name": "dev-env",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "latex",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "user",
+  "extensions": [
+    "james-yu.latex-workshop",
+    "jebbs.plantuml",
+    "gruntfuggly.todo-tree"
+  ],
+  "settings": {
+    //LaTeX related
+    "latex-workshop.latex.outDir": "../out/",
+    "latex-workshop.synctex.afterBuild.enabled": true,
+    "latex-workshop.latex.tools": [
+      {
+        "name": "latexmk",
+        "command": "latexmk",
+        "args": [
+          "-shell-escape",
+          "-synctex=1",
+          "-interaction=nonstopmode",
+          "-file-line-error",
+          "-pdf",
+          "-outdir=%OUTDIR%",
+          "%DOC%"
+        ],
+        "env": {}
+      },
+      {
+        "name": "pdflatex",
+        "command": "pdflatex",
+        "args": [
+          "-shell-escape",
+          "-synctex=1",
+          "-interaction=nonstopmode",
+          "-file-line-error",
+          "-output-directory=%OUTDIR%",
+          "%DOC%"
+        ],
+        "env": {}
+      }
+    ],
+    "latex-workshop.latex.recipes": [
+      {
+        "name": "Full build (latexmk 🔃)",
+        "tools": [
+          "latexmk"
+        ]
+      },
+      {
+        "name": "Quick compile (pdflatex)",
+        "tools": [
+          "pdflatex"
+        ]
+      }
+    ],
+    "latex-workshop.view.pdf.color": {
+      "dark": {
+        "backgroundColor": "#171717",
+        "pageColorsBackground": "#212121",
+        "pageColorsForeground": "#eeeeee"
+      }
+    },
+    "[latex]": {
+      "editor.formatOnSave": true
+    },
+    //PlantUML
+    "plantuml.server": "http://0.0.0.0:8080/",
+    "plantuml.render": "PlantUMLServer",
+    "plantuml.exportFormat": "svg",
+    "plantuml.diagramsRoot": "assets/graphics/src",
+    "plantuml.exportOutDir": "assets/graphics/generated",
+    //Todo tree
+    "todo-tree.regex.regex": "((//|%|<!--|;|/\\*|^|#)\\s*($TAGS)|^\\s*- \\[ \\])",
+    "todo-tree.filtering.includeGlobs": [
+      "**/*.(tex)"
+    ],
+    "todo-tree.highlights.enabled": false,
+    //Hide these files in the tree view on the left on vscode
+    "files.exclude": {
+      "out/": true,
+      "**/__latexindent_temp.tex": true,
+      "**/*-eps-converted-to.pdf": true,
+      "**/indent.log": true
+    }
+  }
+}

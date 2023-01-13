@@ -1,0 +1,18 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "assets/graphics/generated/": true,
+        "**/.DS_Store": true,
+        ".direnv": true,
+        ".envrc": true,
+        "flake.lock": true,
+        "*.bak": true,
+        "old/": true,
+        "Sources/": true,
+    },
+    "editor.formatOnSave": true,
+    "todo-tree.tree.showBadges": true
+}
