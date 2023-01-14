@@ -265,6 +265,6 @@ TSWLatexianTemp*
 .direnv/
 
 # Data
-.csv
+*.csv
 
 .DS_Store
