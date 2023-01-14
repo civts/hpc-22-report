@@ -9,5 +9,13 @@
 
 To move from serial to parallel we decided to split the ordered
 points between all the processes, then each process will perform
-the serial algorithm on the subset and will find its local best distance and
-finally the distances will be merged and the boundary points will be checked
+the serial algorithm on its subset of points and it will find its local best distance and
+finally the distances will be merged and the boundary points will be checked.
+
+\subsection*{Implementation}
+To implement the parallel algorithm we used MPI.
+In particular, after ordering the points, we split them between the processes using the \verb+MPI_Scatterv+ function.
+To do this we had to implement two MPI datatypes, \verb+mpi_point_type+ to represent a point and \verb+mpi_pair_of_points_type+
+to represent a pair of points.
+
+After the scatter, every process computes the closest pair using the serial algorithm described in section 2.
