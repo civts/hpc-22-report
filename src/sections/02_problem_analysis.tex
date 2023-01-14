@@ -1,21 +1,26 @@
 \section{Problem analysis}
 \label{sec:problem_analysis}
 
-
-The naive solution to this problem would be to take each point
+% description of the problem
+The na\"ive solution to this problem would be to take each point
 in the plane and calculate the distance between that point and all
-the other points. The time complexity for this solution is $O(N^2)$
-where $N$ is the number of points in the space.
-Better solutions have been proposed, in particular in 1976
-Rabin proposed a randomized algorithm with an expected run time
-of $O(N)$ and in 1979 Fortune and Hopcroft proposed a
-deterministic $O(N log log N)$ solution \cite{Fortune_Hopcroft}
-assuming that the floor operation takes constant time.
+the other points. The time complexity for this solution is $\Theta(N^2)$,
+where $N\coloneqq|S|$ is the cardinality of the set $S$.
 
-In this project we will explore a divide and conquer approach
-with $O(N(logN)^2)$ time complexity. We chose it because
-divide and conquer is highly parallelizable so it will be easier
-to exploit the computational power of the HPC cluster.
+% Better solutions have been proposed, in particular in 1975
+% Rabin proposed a stocastic algorithm with an expected run time
+% of $O(N)$.
+
+In 1975, Shamos and Hoey proved that the lower bound for the problem is $\Omega(N * log(N))$\cite[§2, theorem 1]{closest_pair_definition}. An algorithm with said complexity appears
+the following year from Bentley and Shamos \cite{divide_and_conq_3NlgN}.
+% in a book by Preparata and Shamos \cite[§5.4]{preparata1993computational}.
+A new version of that algortihm was proposed in 2006, reducing the time complexity by a factor of two \cite{ge2006improved}.
+
+For the purposes of this research, we decided to implement the version of Bentley and Shamos, which falls into the best category of complexity whilst still keeping the base algorithm relatively simple, aiding the comprehension of the code.
+% For this research, we chose to use a divide and conquer approach
+% with $O(N*(logN)^2)$ time complexity. We chose it because
+% divide and conquer is highly parallelizable so it will be easier
+% to exploit the computational power of the HPC cluster.
 
 \subsection{Serial implementation}
 
@@ -23,7 +28,7 @@ We will now focus on the analysis of the divide and conquer algorithm
 and its serial implementation.
 
 \subsubsection{Divide}
-The first step of the algorithm is the divide operation, i.e.
+The first step of the algorithm is the divide operation, i.e.,
 split the original problem in sub problems.
 
 The original set of points will be split in two subsets and each
@@ -56,3 +61,5 @@ halves and recursively computes the distances of each half using the \verb+close
 function. After the distances computation we use the smallest distances to select the points
 near the boundary. Then we use the \verb+band_update_result+ to sort these points by the $y$ coordinate
 and check the distance between each point and the next 6 points.
+
+% state of the art
