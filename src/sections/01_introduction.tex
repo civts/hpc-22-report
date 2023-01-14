@@ -1,22 +1,21 @@
 \section{Introduction}
 \label{sec:introduction}
 
-The \textit{parallel closest pair of points} problem consists
-in finding the smaller distance between two points in the plane.
-We will focus on the 2-dimensional problem, however, solutions for
-the $d$ dimensional space exist.
+% what we are talking about
+The \textit{closest pair of points} problem consists
+in finding the two nearest points in a set, $S$, according to a given distance function, $d$\cite{closest_pair_definition}.
+These points can live in a space with an arbirary number of dimensions
+and the choice of the distance function is also arbitrary.
+For the purposes of this research, we focus on the two-dimensional problem, using the Euclidean distance and integer coordinates.
+With minimal adjustments, the code can be adapted to solve a higher dimensionality problem, to adopt a different distance function or to use, e.g., floating point coordinates.
 
-The naive solution to this problem would be to take each point
-in the plane and calculate the distance between that point and all
-the other points. The time complexity for this solution is $O(N^2)$
-where $N$ is the number of points in the space.
-Better solutions have been proposed, in particular in 1976
-Rabin proposed a randomized algorithm with an expected run time
-of $O(N)$ and in 1979 Fortune and Hopcroft proposed a
-deterministic $O(N log log N)$ solution \cite{Fortune_Hopcroft}
-assuming that the floor operation takes constant time.
+% objective
+This research aims to study the implications of running an algorithm to solve the closest pair of points problem in parallel on a cluster for High Performance Computing.
 
-In this project we will explore a divide and conquer approach
-with $O(N(logN)^2)$ time complexity. We chose it because
-divide and conquer is highly parallelizable so it will be easier
-to exploit the computational power of the HPC cluster.
+% structure of the paper
+This paper is structured as follows:
+\begin{inlinelist}
+    \item \Cref{sec:problem_analysis} describes the state of the art for the closest pair of points problem.
+    \item \Cref{sec:parallelization} treats how we produced our parallel implementation.
+    \item \Cref{sec:final_discussion} provides an evaluation of the obtained results using benchmarking techniques and our conclusions on the project as a whole.
+\end{inlinelist}

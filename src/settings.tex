@@ -2,7 +2,7 @@
 
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
-\usepackage{inputenc}
+\usepackage[utf8]{inputenc} % Required for including letters with accents
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -18,6 +18,16 @@
     inkscapelatex = false,
     inkscapearea = nocrop,
     width = \columnwidth
+}
+
+\usepackage[hidelinks]{hyperref} % Make the links clickable
+
+\usepackage{enumitem} % Required for manipulating the whitespace between and within lists
+
+% Define the inline list
+\newlist{inlinelist}{enumerate*}{1}
+\setlist*[inlinelist,1]{%
+    label=(\roman*),
 }
 
 \usepackage{cleveref}

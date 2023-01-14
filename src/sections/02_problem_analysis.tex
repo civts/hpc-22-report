@@ -1,12 +1,28 @@
 \section{Problem analysis}
 \label{sec:problem_analysis}
 
-Serial implementation
+
+The naive solution to this problem would be to take each point
+in the plane and calculate the distance between that point and all
+the other points. The time complexity for this solution is $O(N^2)$
+where $N$ is the number of points in the space.
+Better solutions have been proposed, in particular in 1976
+Rabin proposed a randomized algorithm with an expected run time
+of $O(N)$ and in 1979 Fortune and Hopcroft proposed a
+deterministic $O(N log log N)$ solution \cite{Fortune_Hopcroft}
+assuming that the floor operation takes constant time.
+
+In this project we will explore a divide and conquer approach
+with $O(N(logN)^2)$ time complexity. We chose it because
+divide and conquer is highly parallelizable so it will be easier
+to exploit the computational power of the HPC cluster.
+
+\subsection{Serial implementation}
 
 We will now focus on the analysis of the divide and conquer algorithm
 and its serial implementation.
 
-\subsection{Divide}
+\subsubsection{Divide}
 The first step of the algorithm is the divide operation, i.e.
 split the original problem in sub problems.
 
@@ -14,12 +30,12 @@ The original set of points will be split in two subsets and each
 subset will be split in two subsets and so on. This process will be repeated
 until we have three or less points in each subset.
 
-\subsection{Find the closest pair}
+\subsubsection{Find the closest pair}
 To find the closest pair in each subset we only have to perform
 at most three comparisons and select the pair of points with the smallest
 distance in the subset.
 
-\subsection{Merge}
+\subsubsection{Merge}
 The merge operation is a crucial part in the algorithm.
 The first thing to do is to take two adjacent subsets and compare the distances
 found in each subset and take the pair of points with smaller distance. Then we
