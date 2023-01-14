@@ -22,5 +22,10 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Guess who's back
+          message: |
+            Guess who's back
+
+            message: ${{GITHUB.EVENT.HEAD_COMMIT.MESSAGE}}
+            by: ${{GITHUB.ACTOR}}
+            commit: ${{GITHUB.SHA}}
           document: src/main.pdf
