@@ -22,23 +22,32 @@ For the purposes of this research, we decided to implement the version of Bentle
 % divide and conquer is highly parallelizable so it will be easier
 % to exploit the computational power of the HPC cluster.
 
-\subsection{Serial implementation}
+\subsection{Algorithm explanation}
 
-We will now focus on the analysis of the divide and conquer algorithm
-and its serial implementation.
+In order to solve the closest pair of points problem, we apply the divide et impera approach described in \cite{divide_and_conq_3NlgN}.
 
-\subsubsection{Divide}
-The first step of the algorithm is the divide operation, i.e.,
-split the original problem in sub problems.
+Our function accepts as input an array of $N$ points. As a first step, this array is sorted in ascending order according to the X coordinate ($\Theta(N*log(N))$).
 
-The original set of points will be split in two subsets and each
-subset will be split in two subsets and so on. This process will be repeated
-until we have three or less points in each subset.
+If the length of the array is two, then the distance between these two points is the minimum one.
 
-\subsubsection{Find the closest pair}
-To find the closest pair in each subset we only have to perform
-at most three comparisons and select the pair of points with the smallest
-distance in the subset.
+If the length of the array is three, we compute the three distances between the pairs of points and return the minimum one.
+
+If the length is greater than three, we:
+\begin{inlinelist}
+    \item divide the points by splitting them in two halves of length $\lfloor \frac{N}{2} \rfloor$ and $\lceil \frac{N}{2} \rceil$,
+    \item find the closest pair in each half by recursively calling the closest pair of points function on them,
+    \item merge the two results to find the closest pair in the starting array. \label{step:merge}
+\end{inlinelist}
+
+Let us focus our attention on step \ref{step:merge}: the merge.
+
+In order to combine the two partial results, we first determine which among the the two pairs has the smallest distance, let that be $\delta$.
+
+Next, we condiser a vertical band of points of thickness $2\delta$ centered on the line we used to split the points -i.e., it has an X coordinate equal to the median of the X coordinates of the rightmost point of the left half and the leftmost point of the right half-.
+
+After having sorted the points in that band according to their Y coordinate, we search if they contain a pair closer than $\delta$.
+
+To do so, we compute the distance between each point and the five that come after it (), updating our closest pair if we find a couple of points that is closer than the minimum distance.
 
 \subsubsection{Merge}
 The merge operation is a crucial part in the algorithm.
