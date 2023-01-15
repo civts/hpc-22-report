@@ -41,6 +41,21 @@ We saw the execution time varying like abcd
 \end{table}
 
 \subsection{Speedup}
+The speedup is an important measure in the evaluation of a parallel algorithm.
+It is defined as the ratio of the serial runtime for solving a problem to the time taken by the
+parallel algorithm to solve the same problem on p processors:
+\begin{equation}
+    Speedup = \frac{T_{serial}}{T_{parallel}}
+\end{equation}
+A value of speedup lower than 1 means that the parallelization did not provide a gain in execution time
+since the parallel algorithm takes more time to solve the problem than the serial algorithm.
+Ideally we would like to have an infinite speedup, however any speedup measure greater than one would
+mean that the parallelization has been successful.
+
+By looking at Fig. \ref{fig:speedup} we can see that our implementation reaches a speedup of $4.5$ on the
+$5M$ and $15M$ datasets using the \textit{scatter:excl} strategy and a speedup of $4$ using the other strategies.
+The $10M$ dataset reaches a slightly lower speedup, while the $1M$ dataset reaches the lowest speedup, especially
+with an high number of processes. This is due to the fact that,
 
 \subsection{Efficiency}
 
