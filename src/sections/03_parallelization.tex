@@ -1,7 +1,7 @@
 \section{Solution Design and Implementation}
 \label{sec:parallelization}
 
-\subsection{Parallelization with OpenMPI}
+\subsection{Parallelization With OpenMPI}
 To harness the speedups offered by parallel computing, we used the OpenMPI library.
 The first step was to choose which part of the program to parallelize.
 This has been easy: the recursive part.
@@ -31,10 +31,12 @@ This would call for four MPI send operations (left band count, right band count,
 
 Writing code is undoubtedly a core part of the process, yet as the complexity of the projects grow, good software engineering practices become more and more important in helping to keep the growth of the codebase under control.
 %As in security, we like to remove things that can fail from the loop, and these are humans. Sorry humans.
-In our case, we decided to set up a version control system with git\footnote{\url{https://git-scm.com}} from the get-go, hosting on GitHub. After that, we added Continuous Integration through the use of GitHub Actions and Google Test framework\footnote{\url{https://google.github.io/googletest}}. The CI pipeline is minimal, but effective in preventing regressions: every time a push (or pull request) is made, the code is compiled -with the same compiler, mpicc, that is used on the cluster- and tests are run. Our actual tests perform a small run of the algorithm in order to check if it outputs the expected result. If everything until now went well, the GitHub Action proceeds in doing a small test run on the cluster. In order to do so, it copies the source code to the cluster, compiles it and submits a job with a medium sized dataset -1M points-, asking for 2 CPUs and 2 nodes, with a time limit of 5 minutes. When the job completes -or fails-, we are notified through a Telegram bot, which also sends us the output files. Each job is created in its own subfolder, so everything is retained if we need to check back on it later on.
+In our case, we decided to set up a version control system with git\footnote{\url{https://git-scm.com}} from the get-go, hosting on GitHub. After that, we added Continuous Integration through the use of GitHub Actions and Google Test framework\footnote{\url{https://google.github.io/googletest}}. The CI pipeline is minimal, but effective in preventing regressions: every time a push (or pull request) is made, the code is compiled -with the same compiler, mpicc, that is used on the cluster- and tests are run. Our actual tests perform a small run of the algorithm in order to check if it outputs the expected result.
+
+If everything until now went well, the GitHub Action proceeds in doing a small test run on the cluster. In order to do so, it copies the source code to the cluster, compiles it and submits a job with a medium sized dataset -1M points-, asking for 2 CPUs and 2 nodes, with a time limit of 5 minutes. When the job completes -or fails-, we are notified through a Telegram bot, which also sends us the output files. Each job is created in its own subdirectory, so everything is retained if we need to check back on it later on.
 Since we are running on a shared cluster, our scripts also include automatic checks to ensure we are not using more storage than we are allowed to use.
 
-The final step of the CI/CD is the automatic execution of the benchmark tests. These are managed by a pipeline that is triggered when we create a new tag in the repository.
+We also produced another pipeline for the automatic execution of the benchmark tests. These are managed by a pipeline that is triggered when we create a new tag in the repository.
 The benchmark pipeline executes the same tests as the other pipeline, with the only difference that instead of creating a single job, it sequentially submits to the cluster -one at a time- all the configurations of inputs and job parameters we want to test -namely, number of nodes, number of CPUs, and packing strategy-. The script checks the status of the submitted job every 10 seconds. Once the job is finished, it collects its results and adds them to a new row in a google spreadsheet
 \footnote{Link in \Cref{link:spreadsheet}}.
 The benchmarking scripts executes everything four times, and notifies us on Telegram as it progresses and when it finishes.

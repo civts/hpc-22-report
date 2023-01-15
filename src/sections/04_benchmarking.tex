@@ -1,4 +1,5 @@
 \section{Benchmarking}
+\label{sec:benchmarking}
 
 The benchmarks were run on the University of Trento's High Performance Computing cluster
 %\footnote{\url{https://unitrento.service-now.com/unitrento?id=unitrento_service_offering_dettaglio&category_id=68561769c33785109a8d151ce0013147&sys_id=14bb84f0c398d5104cbb7055df013133}}
@@ -7,37 +8,37 @@ The benchmarks were run on the University of Trento's High Performance Computing
 The following combinations of parameters were considered:
 
 \begin{table}[ht]
-    \centering
-    \caption{Simulation parameters}
-    \begin{tabular}{l|l}
-        \hline
-        Parameter                     & Range                                    \\
-        \hline
-        CPU(s)                        & {1, 2, 4, 8, 16}                         \\
-        Node(s)                       & {1, 2, 4, 8, 16}                         \\
-        Packing strategy              & {pack, scatter, pack:excl, scatter:excl} \\
-        Input size (number of points) & {8, 5K, 100K, 1M, 5M, 10M, 15M }         \\
-        \hline
-    \end{tabular}
+      \centering
+      \caption{Simulation parameters}
+      \begin{tabular}{l|l}
+            \hline
+            Parameter                     & Range                                    \\
+            \hline
+            CPU(s)                        & {1, 2, 4, 8, 16}                         \\
+            Node(s)                       & {1, 2, 4, 8, 16}                         \\
+            Packing strategy              & {pack, scatter, pack:excl, scatter:excl} \\
+            Input size (number of points) & {8, 5K, 100K, 1M, 5M, 10M, 15M }         \\
+            \hline
+      \end{tabular}
 \end{table}
 
 The jobs were always submitted asking for 1GB of RAM and with a maximum execution time set to two minutes by default, but increased to five if we were running more than 64 processes.
 
 
-\subsection{Execution time}
+\subsection{Execution Time}
 
 We saw the execution time varying like abcd
 \begin{table}[ht]
-    \centering
-    \caption{Aggregate simulation results}
-    \begin{tabular}{l|l|l|l}
-        % or this to span the entire width \begin{tabularx}{\columnwidth}{X|X|X|X}
-        \hline
-        Nodes & Cores & Input size & Runtime (seconds) \\
-        \hline
-        2     & 2     & 1M         & 10                \\
-        \hline
-    \end{tabular}
+      \centering
+      \caption{Aggregate simulation results}
+      \begin{tabular}{l|l|l|l}
+            % or this to span the entire width \begin{tabularx}{\columnwidth}{X|X|X|X}
+            \hline
+            Nodes & Cores & Input size & Runtime (seconds) \\
+            \hline
+            2     & 2     & 1M         & 10                \\
+            \hline
+      \end{tabular}
 \end{table}
 
 \subsection{Speedup}
@@ -45,7 +46,7 @@ The speedup is an important measure in the evaluation of a parallel algorithm.
 It is defined as the ratio of the serial runtime for solving a problem to the time taken by the
 parallel algorithm to solve the same problem on p processors:
 \begin{equation}
-    Speedup = \frac{T_{serial}}{T_{parallel}}
+      Speedup = \frac{T_{serial}}{T_{parallel}}
 \end{equation}
 A value of speedup lower than 1 means that the parallelization did not provide a gain in execution time
 since the parallel algorithm takes more time to solve the problem than the serial algorithm.
@@ -55,7 +56,7 @@ mean that the parallelization has been successful.
 By looking at Fig. \ref{fig:speedup} we can see that our implementation reaches a speedup of $4.5$ on the
 $5M$ and $15M$ datasets using the \textit{scatter:excl} strategy and a speedup of $4$ using the other strategies.
 The $10M$ dataset reaches a slightly lower speedup, while the $1M$ dataset reaches the lowest speedup, especially
-with an high number of processes. This is due to the fact that,
+with an high number of processes. This is due to the communication overhead, which becomes more and more significant as we increase the number of processes. We find supporting evidence of this in the fact that the speedup decreases more rapidly when the packing strategy is set to `scatter' instead of `pack' -meaning that we are running the code on machines that are further from each other-.
 
 \subsection{Efficiency}
 

@@ -2,7 +2,7 @@
 \label{sec:problem_analysis}
 
 % description of the problem
-The na\"ive solution to this problem would be to take each point
+The na\"ive solution to the closest pair of points problem would be to take each point
 in the plane and calculate the distance between that point and all
 the other points. The time complexity for this solution is $\Theta(N^2)$,
 where $N\coloneqq|S|$ is the cardinality of the set $S$.
@@ -22,11 +22,12 @@ For the purposes of this research, we decided to implement the version of Bentle
 % divide and conquer is highly parallelizable so it will be easier
 % to exploit the computational power of the HPC cluster.
 
-\subsection{Algorithm explanation}
+\subsection{Algorithm Explanation}
 
 In order to solve the closest pair of points problem, we apply the divide et impera approach described in \cite{divide_and_conq_3NlgN}.
+Our function accepts as input an array of $N$ points.
 
-Our function accepts as input an array of $N$ points. As a first step, this array is sorted in ascending order according to the X coordinate ($\Theta(N*log(N))$).
+As a first step, this array is sorted in ascending order according to the X coordinate -time complexity: $\Theta(N*log(N))$-.
 
 If the length of the array is two, then the distance between these two points is the minimum one.
 
