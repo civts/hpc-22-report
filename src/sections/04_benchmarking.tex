@@ -1,9 +1,49 @@
 \section{Benchmarking}
 
-Benchmark on the HPC@UniTrento cluster
-\begin{itemize}
-    \item execution times
-    \item speedups
-    \item efficiency
-    \item reasoning on scalability (strong vs weak)
-\end{itemize}
+The benchmarks were run on the University of Trento's High Performance Computing cluster
+%\footnote{\url{https://unitrento.service-now.com/unitrento?id=unitrento_service_offering_dettaglio&category_id=68561769c33785109a8d151ce0013147&sys_id=14bb84f0c398d5104cbb7055df013133}}
+.
+
+The following combinations of parameters were considered:
+
+\begin{table}[ht]
+    \centering
+    \caption{Simulation parameters}
+    \begin{tabular}{l|l}
+        \hline
+        Parameter                     & Range                                    \\
+        \hline
+        CPU(s)                        & {1, 2, 4, 8, 16}                         \\
+        Node(s)                       & {1, 2, 4, 8, 16}                         \\
+        Packing strategy              & {pack, scatter, pack:excl, scatter:excl} \\
+        Input size (number of points) & {8, 5K, 100K, 1M, 5M, 10M, 15M }         \\
+        \hline
+    \end{tabular}
+\end{table}
+
+The jobs were always submitted asking for 1GB of RAM and with a maximum execution time set to two minutes by default, but increased to five if we were running more than 64 processes.
+
+
+\subsection{Execution time}
+
+We saw the execution time varying like abcd
+\begin{table}[ht]
+    \centering
+    \caption{Aggregate simulation results}
+    \begin{tabular}{l|l|l|l}
+        % or this to span the entire width \begin{tabularx}{\columnwidth}{X|X|X|X}
+        \hline
+        Nodes & Cores & Input size & Runtime (seconds) \\
+        \hline
+        2     & 2     & 1M         & 10                \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Speedup}
+
+\subsection{Efficiency}
+
+\subsection{Scalability}
+Our implementation exhibited {strong-weak} scalability. TODO: figure this out
+
