@@ -11,7 +11,6 @@
 %Graphics
 \usepackage{epsfig}
 \usepackage{svg}
-\usepackage[off]{svg-extract}
 \svgsetup{
     clean = true,
     inkscapepath = ../out/converted_svgs/,
@@ -19,7 +18,8 @@
     inkscapearea = nocrop,
     width = \columnwidth
 }
-
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning,trees}
 \usepackage[hidelinks]{hyperref} % Make the links clickable
 
 \usepackage{enumitem} % Required for manipulating the whitespace between and within lists

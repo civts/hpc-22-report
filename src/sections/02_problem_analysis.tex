@@ -1,4 +1,4 @@
-\section{Problem analysis}
+\section{Problem Analysis}
 \label{sec:problem_analysis}
 
 % description of the problem
@@ -43,32 +43,12 @@ Let us focus our attention on step \ref{step:merge}: the merge.
 
 In order to combine the two partial results, we first determine which among the the two pairs has the smallest distance, let that be $\delta$.
 
-Next, we condiser a vertical band of points of thickness $2\delta$ centered on the line we used to split the points -i.e., it has an X coordinate equal to the median of the X coordinates of the rightmost point of the left half and the leftmost point of the right half-.
+Next, we condiser a vertical band of points of thickness $2\delta$ centered on the line we used to split the points -i.e., on the median of the X coordinates of the rightmost point of the left half and the leftmost point of the right half-.
 
-After having sorted the points in that band according to their Y coordinate, we search if they contain a pair closer than $\delta$.
+After sorting the points in that band according to their Y coordinate, we search if they contain a pair closer than $\delta$.
 
-To do so, we compute the distance between each point and the five that come after it (), updating our closest pair if we find a couple of points that is closer than the minimum distance.
+To do so, we compute the distance between each point of the band and the seven points that come after it,
+%fifteen/eight/sixteen https://youtu.be/xi-WF07rAQw?t=1673 https://archive.org/details/AlgorithmDesign1stEditionByJonKleinbergAndEvaTardos2005PDF/page/n253/mode/2up
+updating our closest pair if we find a couple of points that are closer than the minimum distance\cite{lingqi}.
 
-\subsubsection{Merge}
-The merge operation is a crucial part in the algorithm.
-The first thing to do is to take two adjacent subsets and compare the distances
-found in each subset and take the pair of points with smaller distance. Then we
-need to look at the boundary between the two subsets and check the distances of
-the pairs where one point belongs to one subset and one point belongs to the other
-subset. To check these points we first select the strip of points with $x$ distance smaller
-than the current smaller distance, then we sort the selected points by the $y$ coordinate.
-Finally, for each point in the strip we calculate the distance between that point and
-the $7$ points around it and we compare this distance with the smaller distance found so far.
-It can be proven matematically that 7 is the maximum number of points to check since, if there
-would be closer points, a smaller distance would have been found in the previous step.
-(Decidere se spiegare meglio e/o aggiungere l'immagine)
-
-\subsection{Implementation}
-To implement the serial algorithm we started by implementing the \verb+closest_points_divide+
-function that takes an array of points already sorted by the x coordinate and split the array in two
-halves and recursively computes the distances of each half using the \verb+closest_points_rec+
-function. After the distances computation we use the smallest distances to select the points
-near the boundary. Then we use the \verb+band_update_result+ to sort these points by the $y$ coordinate
-and check the distance between each point and the next 6 points.
-
-% state of the art
+%(Decidere se spiegare meglio e/o aggiungere l'immagine)

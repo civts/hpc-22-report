@@ -1,27 +1,25 @@
-\section{Main steps towards parallelization}
+\section{Solution Design and Implementation}
 \label{sec:parallelization}
 
-\begin{itemize}
-  \item Design of the parallel solution
-  \item Implementation
-  \item Benchmark on the HPC@UniTrento cluster
-  \begin{itemize}
-    \item execution times
-    \item speedups
-    \item efficiency
-    \item reasoning on scalability (strong vs weak)
-\end{itemize}
-\end{itemize}
+To harness the speedups offered by parallel computing, we used the OpenMPI library.
+The first step was to choose which part of the program to parallelize.
+This has been easy: the recursive part.
+the points are divided among the processes, then merged.
+It was now time to decide how to communicate amongst processes, and we came up with the scheme of which in \Cref{fig:albero_bell_albero}.
+The splitting of the work can be visualized as a tree, in which each node does the same amount of work. The nodes on the left communicate to the nodes on the right.
 
-To move from serial to parallel we decided to split the ordered
-points between all the processes, then each process will perform
-the serial algorithm on its subset of points and it will find its local best distance and
-finally the distances will be merged and the boundary points will be checked.
+\begin{figure}[!ht]
+  \resizebox{\columnwidth}{!}{
+    \input{./tikz/process_tree.tex}
+  }
+  \caption{Illustration of the process communication scheme with 8 processes.}
+  \label{fig:albero_bell_albero}
+\end{figure}
 
-\subsection*{Implementation}
-To implement the parallel algorithm we used MPI.
-In particular, after ordering the points, we split them between the processes using the \verb+MPI_Scatterv+ function.
-To do this we had to implement two MPI datatypes, \verb+mpi_point_type+ to represent a point and \verb+mpi_pair_of_points_type+
+It was now time to implement it with OpenMPI. This required several modifications to the code. The first thing was to decide which MPI calls to make.
+Process 0 is the one that reads the file initially and then reassembles the final result.
+The natural choice at the beginning to distribute the points was a \verb+MPI_Scatterv+. To do this we had to implement two MPI datatypes, \verb+mpi_point_type+ to represent a point and \verb+mpi_pair_of_points_type+
 to represent a pair of points.
-
-After the scatter, every process computes the closest pair using the serial algorithm described in section 2.
+Then each process receives its points and can work on them. Each process knows how many points to receive since they received the total count of points from 0 with a broadcast.
+After the process computed its closest pair, it calculates the bands according to the smallest distance it found and sends them to the receiving process.
+This would call for four MPI send operations (left band count, right band count, left band points, right band points). Instead, we optimized this by sending the two lengths simultaneously and then the concatenation of the band points.
