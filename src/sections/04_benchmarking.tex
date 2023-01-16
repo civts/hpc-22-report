@@ -41,6 +41,14 @@ We saw the execution time varying like abcd
     \end{tabular}
 \end{table}
 
+In Fig. \ref{fig:exec_time} we reported the total execution time in function of the number of processes for the four placing strategy.
+It can be seen that the \textit{pack} strategy gives better performances than the \textit{scatter} strategy, however
+the latter shows a higher improvement in runtime as the number of processes increases. Regarding the \textit{excl} strategies
+\textit{pack} and \textit{scatter} give very similar results and there is no clear difference in the runtime.
+It is interesting to look at the runtime when using the $1M$ dataset. In particular, when we use the \textit{scatter} strategy we can
+see that the runtime increases when we have more than $8$ processes since the parallel overhead becomes more important and the dataset is too
+small to have an increase in performances when increasing the number of processes.
+
 \subsection{Speedup}
 The speedup is an important measure in the evaluation of a parallel algorithm.
 It is defined as the ratio of the serial runtime for solving a problem to the time taken by the
@@ -57,6 +65,7 @@ By looking at Fig. \ref{fig:speedup} we can see that our implementation reaches 
 $5M$ and $15M$ datasets using the \textit{scatter:excl} strategy and a speedup of $4$ using the other strategies.
 The $10M$ dataset reaches a slightly lower speedup, while the $1M$ dataset reaches the lowest speedup, especially
 with an high number of processes. This is due to the communication overhead, which becomes more and more significant as we increase the number of processes. We find supporting evidence of this in the fact that the speedup decreases more rapidly when the packing strategy is set to `scatter' instead of `pack' -meaning that we are running the code on machines that are further from each other-.
+
 
 \subsection{Efficiency}
 Efficiency is defined as the ratio of speedup to the
@@ -75,9 +84,9 @@ An efficiency of one means that every processor is fully utilized and we can see
 this case happens only sometimes when one processor is used.
 For all the placing strategies we can spot the same trend: the efficiency rapidly declines as we
 increase the number of processes. This is because when we double the number of processes the speedup should
-double too to keep the efficiency high, hower this does not happen due to the parallel overhead
-
+double too to keep the efficiency high, however this does not happen due to the parallel overhead.
+As for speedup, it is interesting to see that the efficiencies obtained with the $5M$ and $15M$ datasets are very similar and are
+better than the $10M$ and $1M$ efficiencies.
 
 \subsection{Scalability}
-Our implementation exhibited {strong-weak} scalability. TODO: figure this out
-
+Our implementation exhibited weak scalability.
