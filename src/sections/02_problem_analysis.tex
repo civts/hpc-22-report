@@ -11,7 +11,7 @@ where $N\coloneqq|S|$ is the cardinality of the set $S$.
 % Rabin proposed a stocastic algorithm with an expected run time
 % of $O(N)$.
 
-In 1975, Shamos and Hoey proved that the lower bound for the problem is $\Omega(N * log(N))$\cite[§2, theorem 1]{closest_pair_definition}. An algorithm with said complexity appears
+In 1975, Shamos and Hoey proved that the lower bound for this problem to be $\Omega(N * log(N))$~\cite[§2, theorem 1]{closest_pair_definition}. An algorithm with said complexity appears
 the following year from Bentley and Shamos \cite{divide_and_conq_3NlgN}.
 % in a book by Preparata and Shamos \cite[§5.4]{preparata1993computational}.
 A new version of that algortihm was proposed in 2006, reducing the time complexity by a factor of two \cite{ge2006improved}.
@@ -22,7 +22,7 @@ For the purposes of this research, we decided to implement the version of Bentle
 % divide and conquer is highly parallelizable so it will be easier
 % to exploit the computational power of the HPC cluster.
 
-\subsection{Algorithm Explanation}
+\subsection{Serial Algorithm Explanation}
 
 In order to solve the closest pair of points problem, we apply the divide et impera approach described in \cite{divide_and_conq_3NlgN}.
 Our function accepts as input an array of $N$ points.
@@ -50,9 +50,9 @@ After sorting the points in that band according to their Y coordinate, we search
 
 To do so, we compute the distance between each point of the band and the seven points that come after it,
 %fifteen/eight/sixteen https://youtu.be/xi-WF07rAQw?t=1673 https://archive.org/details/AlgorithmDesign1stEditionByJonKleinbergAndEvaTardos2005PDF/page/n253/mode/2up
-updating our closest pair if we find a couple of points that are closer than the minimum distance\cite{lingqi}.
+updating our closest pair if we find a couple of points that are closer than the minimum distance \cite{lingqi}.
 
 %(Decidere se spiegare meglio e/o aggiungere l'immagine)
 
-\subsection{State of the Art}
-We searched for other parallel implementations that use OpenMPI, yet found only one \cite{gh1} that generated the points randomly every time and appeared to have bad memory management and another \cite{gh2_fortran} which continued to go in Segmentation fault.
+\subsection{Existing Parallel Implementations}
+We searched online for existing implementations that use OpenMPI to parallelize the algorithm, yet found only one \cite{gh1} that generated the points randomly every time and appeared to have bad memory management and another \cite{gh2_fortran} which continued to go in segmentation fault.
