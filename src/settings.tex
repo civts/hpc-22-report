@@ -3,7 +3,6 @@
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage[utf8]{inputenc} % Required for including letters with accents
-\usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts,mathtools}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -35,5 +34,17 @@
 
 \usepackage{textcomp}
 \usepackage{xcolor}
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%Bibliogaphy
+\usepackage[style=ieee,sorting=nty]{biblatex}
+\bibliography{bibliography}
+
+%Redefines the \url command so that we can specify multiple ones (used in the bibliography)
+% https://tex.stackexchange.com/questions/57865
+\renewbibmacro*{url}{\printfield[url]{urlraw}}
+\let\URL\url
+\makeatletter
+\def\url{\begingroup \catcode`\%=12\catcode`\#=12\relax\printurl}
+\def\printurl#1{\@URL#1 \@nil\endgroup}
+\def\@URL#1 #2\@nil{\URL{#1}\ifx\relax#2\relax \else; \url{#2\relax}\fi}
+\makeatother
