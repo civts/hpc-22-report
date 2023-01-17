@@ -49,6 +49,12 @@ It is interesting to look at the runtime when using the $1M$ dataset. In particu
 see that the runtime increases when we have more than $8$ processes since the parallel overhead becomes more important and the dataset is too
 small to have an increase in performances when increasing the number of processes.
 
+\subsection{Scattering time}
+In Fig. \ref{fig:scattering} we reported the time taken for the scattering operation in the four placing strategies. It can be
+noticed that the \textit{scatter} strategy takes the higher time for the scatter, especially when the number of processes is high.
+The lowest scatter time is obtained with the \textit{pack:excl} strategy where even the bigger dataset is scattered in less than $0.1$ seconds.
+This behaviour was expected since all the processes are placed on the same node.
+
 \subsection{Speedup}
 The speedup is an important measure in the evaluation of a parallel algorithm.
 It is defined as the ratio of the serial runtime for solving a problem to the time taken by the
