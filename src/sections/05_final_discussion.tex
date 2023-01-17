@@ -2,23 +2,29 @@
 \label{sec:final_discussion}
 
 \subsection{Conclusions}
-In this research, we produced an implementation of the closest pair of points algorithm and parallelized it on a high performance comupting cluster.
-We setup Continuous Integration and Continuous Deployment pipelines that help us not only speeding up the testing, but also catching bugs in the code.
+In this research, we produced an implementation of the closest pair of points algorithm, parallelized it through the use of OpenMPI and benchmarked it on a High Performance Comupting cluster.
+We setup Continuous Integration and Continuous Deployment pipelines that helped us not only speeding up the testing, but also catching bugs in the code.
 
-The obtained algorithm performs well, I think, yet we will insert a more formally convincing phrase here referring to the scalability it exhibited and saying that overall we think its 'good'.
+Overall, the obtained algorithm shows moderate speedups.
 
-\subsection{Limitations}
-We assume that the point coordinates fit inside an int32.
-We strived to put everything, yet we'd like to have had more time to investigate the weird behavior of the speedup shooting up at 64 processes.
+\subsection{Assumptions}
+We assumed that:
+\begin{itemize}
+    \item the coordinates of a point fit inside an \texttt{int32};
+    \item the points live in a two-dymensional space;
+    \item we use the Euclidean distance function.
+\end{itemize}
 
 \subsection{Future Works}
 \label{subsec:future_works}
-For sure, we'd like how an addition of the OpenMP parallelization strategy influences the outcomes of the tests.
-Also, we'd like \LaTeX~to stop putting the figures where he wants, especially in the appendix.
-More rigorous benchmarking, with distinctions from the various times of our program.
-A comparison with \cite{wang2020parallel} would be great, but we were not able to figure it out in the time allotted.
+For sure, we'd like to know how an addition of the OpenMP parallelization strategy influences the outcomes of the tests.
 
-Optimizations:
+More rigorous benchmarking, with distinctions from the various times of our program.
+
+A comparison with \cite{wang2020parallel} would also be great, but we were not able to figure it out in the time allotted.
+
+Possible Optimizations:
 \begin{enumerate}
-    \item Instead of 3 \verb|MPI_send|, we can have two by merging the first two (the best pair and the two band lenghts)
+    \item Instead of 3 \verb|MPI_send|, we can have two by merging the one for transmitting the best pair and the one for transmitting the two band lenghts.
+    \item Parallel I/O could be considered: Since the filesystem is shared, each process may individually read the first line of the input, which in our input format contains the total number of points. It could open the offset in the file where its first point is using its rank, and read exactly the portion of points it has to elaborate. This of course assumes that all points occupy a known, constant, size in the file. That can be achieved by representing each number with a fixed length string -e.g., `+0137`' or `-9850`' if the range is $]-10000,10000[$ and we encode the file in ASCII-. Another possibility should be to use binary formats such as CBOR~\cite{bormann2013cbor}.
 \end{enumerate}
