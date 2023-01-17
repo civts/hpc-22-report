@@ -12,14 +12,15 @@
 \usepackage{epsfig}
 \usepackage{svg}
 \svgsetup{
-    clean = true,
-    inkscapepath = ../out/converted_svgs/,
-    inkscapelatex = false,
-    inkscapearea = nocrop,
-    width = \columnwidth
+      clean = true,
+      inkscapepath = ../out/converted_svgs/,
+      inkscapelatex = false,
+      inkscapearea = nocrop,
+      width = \columnwidth
 }
-\usepackage{tikz}
-\usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning,trees}
+
+\usepackage{subcaption}
+
 \usepackage[hidelinks]{hyperref} % Make the links clickable
 
 \usepackage{enumitem} % Required for manipulating the whitespace between and within lists
@@ -27,7 +28,7 @@
 % Define the inline list
 \newlist{inlinelist}{enumerate*}{1}
 \setlist*[inlinelist,1]{%
-    label=(\roman*),
+      label=(\roman*),
 }
 
 \usepackage{cleveref}
