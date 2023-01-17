@@ -10,13 +10,38 @@ jobs:
     steps:
       - name: Clone the repo
         uses: actions/checkout@v3
+        with:
+          # I seriously hope we do not push more than 10 commits at a time.
+          # Could use `git rev-list --count --first-parent origin/main..HEAD` to get the count,
+          # but it would need to have the repo ahead of time... Probably there is some action/API
+          fetch-depth: 10
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
           root_file: main.tex
           working_directory: src/
           latexmk_shell_escape: true
-          extra_system_packages: "inkscape"
+          extra_system_packages: "inkscape git"
+          post_compile: |
+            cd ..
+            if [[ ${{GITHUB.EVENT.BEFORE}} != "0000000000000000000000000000000000000000" ]]; then
+              echo "Compiling diff"
+              git config --global --add safe.directory $(pwd)
+              git config --global --add safe.directory $(pwd)/.git
+              git-latexdiff \
+                --no-view \
+                --quiet \
+                --output diff.pdf \
+                --main src/main.tex \
+                --latexmk \
+                --latexopt "-shell-escape" \
+                ${{GITHUB.EVENT.BEFORE}}
+            else
+              echo "Skipping diff compilation"
+              echo "Nothing to do" > diff.pdf
+            fi
+      - name: test
+        run: git-latexdiff --help || echo "it is all a lie"
       - name: Send to Telegram
         uses: appleboy/telegram-action@master
         with:
@@ -29,3 +54,12 @@ jobs:
             by: ${{GITHUB.ACTOR}}
             commit: ${{GITHUB.SHA}}
           document: src/main.pdf
+          disable_notification: true
+      - name: Send to Telegram the diff
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          document: diff.pdf
+          message: |
+            And here's the diff with commit ${{GITHUB.EVENT.BEFORE}}
