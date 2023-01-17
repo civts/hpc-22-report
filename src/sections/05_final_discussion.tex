@@ -8,10 +8,17 @@ We setup Continuous Integration and Continuous Deployment pipelines that help us
 The obtained algorithm performs well, I think, yet we will insert a more formally convincing phrase here referring to the scalability it exhibited and saying that overall we think its 'good'.
 
 \subsection{Limitations}
+We assume that the point coordinates fit inside an int32.
 We strived to put everything, yet we'd like to have had more time to investigate the weird behavior of the speedup shooting up at 64 processes.
 
 \subsection{Future Works}
+\label{subsec:future_works}
 For sure, we'd like how an addition of the OpenMP parallelization strategy influences the outcomes of the tests.
 Also, we'd like \LaTeX~to stop putting the figures where he wants, especially in the appendix.
 More rigorous benchmarking, with distinctions from the various times of our program.
 A comparison with \cite{wang2020parallel} would be great, but we were not able to figure it out in the time allotted.
+
+Optimizations:
+\begin{enumerate}
+    \item Instead of 3 \verb|MPI_send|, we can have two by merging the first two (the best pair and the two band lenghts)
+\end{enumerate}
