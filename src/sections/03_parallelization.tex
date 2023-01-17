@@ -33,10 +33,14 @@ Given that process \textnumero~0 is the one that reads the file initially, and t
 After that, each process allocates the memory it will need to store its share of the points, which is communicated by process \textnumero~0 through an \verb|MPI_Scatterv|.
 Each process then sorts its points individually using the serial implementation.
 
-After a process computed its closest pair, it sends the best closest pair candidate to the receiving process though a call to \verb|MPI_Send|. It then computes the bands of points to send to the receiving process, according to the smallest distance it found. Once it has computed the bands, it first sends -though an \verb|MPI_Send|- a pair of integers to the receiving process representing, respectively, the lenght of the left and the right band. It then transmits, always through an \verb|MPI_Send|, the points, in a single array where the left points are followed by the right points.
+After a process computed its closest pair, it sends the best closest pair candidate to the receiving process through a call to \verb|MPI_Send|. It then computes the bands of points to send to the receiving process, according to the smallest distance it found. Once it has computed the bands, it first sends -through an \verb|MPI_Send|- a pair of integers to the receiving process representing, respectively, the lenght of the left and the right band. It then transmits, always through an \verb|MPI_Send|, the points, in a single array where the left points are followed by the right points.
 
 \noindent
 This arrangement allows us to have three MPI send operations in total for each process `merge' step\footnote{Further optimizations are proposed in \Cref{subsec:future_works}}.
+
+\noindent
+Finally, each receiving process will look in the band for a closest pair than the one computed before.
+The whole cycle will be repeated until the process \textnumero~0 will be the only one remaining.
 
 \subsection{CI/CD Setup}
 
