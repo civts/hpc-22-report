@@ -2,29 +2,24 @@
 \label{sec:final_discussion}
 
 \subsection{Conclusions}
-In this research, we produced an implementation of the closest pair of points algorithm, parallelized it through the use of OpenMPI and benchmarked it on a High Performance Comupting cluster.
+In this research, we produced an implementation of the closest pair of points algorithm, parallelized it through the use of OpenMPI and benchmarked its performance on the High Performance Comupting cluster of the University of Trento.
 We setup Continuous Integration and Continuous Deployment pipelines that helped us not only speeding up the testing, but also catching bugs in the code.
 
-Overall, the obtained algorithm shows moderate speedups.
-
-\subsection{Assumptions}
-We assumed that:
-\begin{itemize}
-    \item the coordinates of a point fit inside an \texttt{int32};
-    \item the points live in a two-dymensional space;
-    \item we use the Euclidean distance function.
-\end{itemize}
+Overall, the obtained algorithm shows moderate speedups compared to its serial versions. We can note that -as expected- those benefits decrease in rate as we add more and more proesses. We think that is is mainly due to the inherent delays of the inter-process communication.
 
 \subsection{Future Works}
 \label{subsec:future_works}
-For sure, we'd like to know how an addition of the OpenMP parallelization strategy influences the outcomes of the tests.
-
-More rigorous benchmarking, with distinctions from the various times of our program.
-
-A comparison with \cite{wang2020parallel} would also be great, but we were not able to figure it out in the time allotted.
-
-Possible Optimizations:
 \begin{enumerate}
-    \item Instead of 3 \verb|MPI_send|, we can have two by merging the one for transmitting the best pair and the one for transmitting the two band lenghts.
-    \item Parallel I/O could be considered: Since the filesystem is shared, each process may individually read the first line of the input, which in our input format contains the total number of points. It could open the offset in the file where its first point is using its rank, and read exactly the portion of points it has to elaborate. This of course assumes that all points occupy a known, constant, size in the file. That can be achieved by representing each number with a fixed length string -e.g., `+0137`' or `-9850`' if the range is $]-10000,10000[$ and we encode the file in ASCII-. Another possibility should be to use binary formats such as CBOR~\cite{bormann2013cbor}.
+    \item It would be proper to explore how our solution compares to a version of the same serial algorithm parallelized with OpenMP\footnote{\texttt{ \url{https://www.openmp.org}}}, and to one hybridly parallelized through the combined use of OpenMP and OpenMPI.
+
+    \item Another benchmarking run could also be made in which the runtimes are considered separately for specific sections of the program -namely: input reading, initial division of the points, local closest points, local band generation, band trasmission and receiving phase, and band merging phase-.
+
+    \item A comparison could also be made with Wang \textit{et al.} \cite{wang2020parallel}.
+
+    \item Possible Optimizations to the code:
+          \begin{itemize}
+              \item Instead of 3 \verb|MPI_send|, we can have two by merging the one for transmitting the best pair and the one for transmitting the two band lenghts.
+              \item Parallel I/O could be considered: Since the filesystem is shared, each process may individually read the first line of the input, which in our input format contains the total number of points. It could open the offset in the file where its first point is using its rank, and read exactly the portion of points it has to elaborate. This of course assumes that all points occupy a known, constant, size in the file. That can be achieved by representing each number with a fixed length string -e.g., `+0137' or `-9850' if the range is $] -10000, 10000 [$- and using a fixed-length encoding such as ASCII. Another possibility should be to use binary formats such as CBOR~\cite{bormann2013cbor}.
+          \end{itemize}
+
 \end{enumerate}

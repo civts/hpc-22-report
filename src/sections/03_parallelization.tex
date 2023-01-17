@@ -2,7 +2,7 @@
 \label{sec:parallelization}
 
 \subsection{Parallelization With OpenMPI}
-To harness the speedups offered by parallel computing, we used the OpenMPI library.
+To harness the speedups offered by parallel computing, we used the OpenMPI\footnote{\texttt{\url{https://www.open-mpi.org}}} library.
 The first step was to choose which part of the program to parallelize.
 The recursive part was the immediate candidate.
 We decided to read all the input points in the first process, \textnumero~0, then distribute them uniformly to all available processes, including \textnumero~0.
